@@ -19,7 +19,7 @@ public class CacheSet<T> {
         tail = new Node<>();
     }
 
-    public void push(Node<T> root) {
+    public void put(Node<T> root) {
         if (map.containsKey(root.key)) {
             delNode(root);
             addNode(root);
@@ -29,6 +29,16 @@ public class CacheSet<T> {
             }
             addNode(root);
         }
+    }
+
+    public Node<T> get(T key) {
+        if (map.containsKey(key)) {
+            Node<T> root = map.get(key);
+            delNode(root);
+            addNode(root);
+            return root;
+        }
+        return null;
     }
 
     public void addNode(Node<T> root) {
