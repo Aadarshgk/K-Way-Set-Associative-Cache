@@ -1,20 +1,23 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cache <T>{
     int set;
-    CacheSet<T>[] cache;
+    List<CacheSet<T>> cache;
     public Cache(int k) {
-        cache= new CacheSet[10];
+        cache= new ArrayList<>();
         this.set = 10;
 
         for(int i=0;i<10;i++){
-            cache[i] = new CacheSet<T>(k);
+            cache.add(0,new CacheSet<>(k));
         }
     }
 
     public void put(Node<T> root) {
-        cache[root.block%set].put(root);
+        cache.get((root.block)%set).putBlock(root);
     }
 
     public Node<T> get(Node<T> root) {
-        return cache[root.block % set].get(root.key);
+        return cache.get((root.block)%set).getBlock(root.key);
     }
 }
